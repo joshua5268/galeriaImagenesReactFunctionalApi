@@ -4,12 +4,14 @@ import Cards from './Cards';
 import Header from './Header';
 import Orders from './Orders';
 import Alert from './Alert';
+import Details from './Details';
 
 const App = () => {
 
     const [characters, setCharacters] = useState([]);
     let [charactersFiltro, setCharactersFiltro] = useState([]);
     let [alertNum, setAlertNum] = useState();
+    let [characterDetails, setCharacterDetails] = useState([]);
 
     useEffect(() => {
 
@@ -46,6 +48,9 @@ const App = () => {
       useEffect(() => {
         setAlertNum(charactersFiltro.length);
       }, [charactersFiltro]);
+
+      useEffect(() => {
+      }, [characterDetails]);
     
     
     const filtroInput = (value) => {
@@ -149,6 +154,13 @@ const App = () => {
               }
           }));
     }
+
+    const useCharactersDetails = (id) => {
+      let array = characters.filter(element => {
+        return element.id == id
+      })
+      setCharacterDetails(array);
+    }
       
     return (
         <Fragment>
@@ -165,28 +177,32 @@ const App = () => {
 
             <main>
                     <div className="container">
-                        <section>
-                            <Orders 
-                                orderAsc={orderAsc}
-                                orderAge={orderAge}
-                                orderHouses={orderHouses}
-                            />
-                        </section>
+                      {characterDetails.length !== 0 ? (<Details characterDetails={characterDetails}/>) : (
+                        <Fragment>
+                            <section>
+                                <Orders 
+                                    orderAsc={orderAsc}
+                                    orderAge={orderAge}
+                                    orderHouses={orderHouses}
+                                />
+                            </section>
 
-                        <section>
-                            <Alert alertNum={alertNum}/>
-                        </section>
-                        {/* Componente de cards */}
-                        <section>
-                              <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 p-3">
-                                      {charactersFiltro.map(character => {
-                                          return (
-                                              <Cards id={character.id} img={character.image} name={character.name} house={character.house}/>
-                                          )
-                                      })}
-                              </div>
-                        </section>
-                    </div>
+                            <section>
+                                <Alert alertNum={alertNum}/>
+                            </section>
+
+                            <section>
+                                  <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 p-3">
+                                          {charactersFiltro.map(character => {
+                                              return (
+                                                  <Cards id={character.id} img={character.image} name={character.name} house={character.house} useCharactersDetails={useCharactersDetails}/>
+                                              )
+                                          })}
+                                  </div>
+                            </section>
+                        </Fragment>)
+                      }
+                    </div>          
             </main>
         </Fragment>
   )

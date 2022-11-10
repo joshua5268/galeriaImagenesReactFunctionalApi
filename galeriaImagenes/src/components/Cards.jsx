@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Cards = ({id, img, name, house}) => {
+const Cards = ({id, img, name, house, useCharactersDetails}) => {
     return (
     
-    <div className='col my-2' key={id}>
-        <div className='tarjeta'>
+    <div className='col my-2' key={id} id={id}>
+        <div className='tarjeta' onClick={() => useCharactersDetails(id)}>
             <div className='card bg-1'>
                 <img src={img} className="imgPhoto"></img>
                 <div className="card-body">
