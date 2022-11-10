@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState} from 'react'
 import axios from "axios";
 import Cards from './Cards';
 import Header from './Header';
+import Orders from './Orders';
 
 const App = () => {
 
@@ -40,11 +41,22 @@ const App = () => {
       }, []);
 
       useEffect(() => {
+        console.log("Cambio")
       }, [charactersFiltro]);
     
     
+    const filtroInput = (value) => {
+        console.log("Hola")
+        let name = value.toLowerCase();
+        let nameFound = characters.filter( character => character.name.toLowerCase().includes(name));
+        let houses = characters.filter( house => house.house);
+        let housesFound = houses.filter(house => house.house.toLowerCase().includes(name) && !house.name.toLowerCase().includes(name));
+        let resultado = nameFound.concat(housesFound);
+        setCharactersFiltro(resultado);
+    }
+    
     const filtroAll = () => {
-        setCharactersFiltro(characters)
+        setCharactersFiltro(characters);
     }
 
     const filtroMale = () => {
@@ -70,11 +82,76 @@ const App = () => {
             return element.alive === false
         }))
     }
+
+    const orderAsc = () => {
+        let arrayfiltro = [...charactersFiltro];
+        charactersFiltro = [];
+        setCharactersFiltro(arrayfiltro.sort(function (a, b) {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            return 0;
+          }));
+    }
+
+    const orderAge = () => {
+        let arrayfiltro = [...charactersFiltro];
+        charactersFiltro = [];
+        setCharactersFiltro(arrayfiltro.sort(function (a, b) {
+            if (a.age === null || a.age.age === undefined) {
+                return 1;
+              }
+              if (b.age === null || b.age.age === undefined) {
+                return -1;
+              }  
+              if (a.age === null && b.age === null) {
+                return 0;
+              }
+              if (a.age.age > b.age.age) {
+                return 1;
+              }
+              if (a.age.age < b.age.age) {
+                return -1;
+              }
+              if (a.age.age === b.age.age) {
+                return 0;
+              }
+          }));
+    }
+
+    const orderHouses = () => {
+        let arrayfiltro = [...charactersFiltro];
+        charactersFiltro = [];
+        setCharactersFiltro(arrayfiltro.sort(function (a, b) {
+            if(a.house === null) {
+                return 1;
+              }
+              if(b.house === null) {
+                return -1;
+              }
+              if(a.house === null && b.age === null) {
+                return 0;
+              }
+              if (a.house > b.house) {
+                return 1;
+              }
+              if (a.house < b.house) {
+                return -1;
+              }
+              if (a.house === b.house) {
+                return 0;
+              }
+          }));
+    }
       
     return (
         <Fragment>
             <header className="fixed-top bg-1">
-                <Header  
+                <Header 
+                    filtroInput={filtroInput} 
                     filtroAll={filtroAll} 
                     filtroMale={filtroMale}
                     filtroFemale={filtroFemale}
@@ -86,38 +163,11 @@ const App = () => {
             <main>
                 <div className="container">
                     <section>
-                        <div className="row row-cols-3">
-                            <div className="col d-flex justify-content-center">
-                                <div className="caja rounded bg-1 text-white" id="filtroAb" data-ab="asc">
-                                    <div>
-                                        <i className="bi bi-arrow-down-up fs-4"></i>
-                                    </div>
-                                    <div>
-                                    <p className="fs-6" id="pAb">A-Z</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col d-flex justify-content-center">
-                                <div className="caja rounded bg-1 text-white" id="filtroAge" data-age="mayor">
-                                    <div>
-                                        <i className="bi bi-emoji-smile-fill fs-4"></i>
-                                    </div>
-                                    <div>
-                                        <p className="fs-6" id="pAge">A mayor</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col d-flex justify-content-center">
-                                <div className="caja rounded bg-1 text-white" id="filtroHouse">
-                                    <div>
-                                        <i className="bi bi-house-fill fs-4"></i>
-                                    </div>
-                                    <div>
-                                        <p className="fs-6">Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Orders 
+                            orderAsc={orderAsc}
+                            orderAge={orderAge}
+                            orderHouses={orderHouses}
+                        />
                     </section>
 
                     <section>
@@ -138,8 +188,6 @@ const App = () => {
                 </div>
             </main>
         </Fragment>
-    
-    
   )
 }
 

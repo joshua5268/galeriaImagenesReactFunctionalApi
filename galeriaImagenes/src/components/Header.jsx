@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Header = ({ filtroAll, filtroMale, filtroFemale, filtroAlive, filtroDead}) => {
+const Header = ({ filtroInput, filtroAll, filtroMale, filtroFemale, filtroAlive, filtroDead}) => {
   return (
             <nav className="navbar navbar-expand-lg">
                 <div className="container-fluid">
-                    <a className="navbar-brand text-white" href="#"><img src="" className="mx-2" width="50" height="40"></img>WikiGOT</a>
+                <a className="navbar-brand text-white" href="#"><img src="./src/images/logo.png" className="mx-2" width="50" height="40"></img>WikiGOT</a>
                     <button className="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -24,7 +24,7 @@ const Header = ({ filtroAll, filtroMale, filtroFemale, filtroAlive, filtroDead})
                             </li>
                         </ul>
                         <div className="d-flex" role="search">
-                            <input className="form-control mx-4" placeholder="Search" type="search" aria-label="Search"></input>
+                            <input className="form-control mx-4" placeholder="Search" type="search" aria-label="Search" onKeyUp={(evt) => filtroInput(evt.target.value)}></input>
                         </div>
                     </div>
                 </div>
