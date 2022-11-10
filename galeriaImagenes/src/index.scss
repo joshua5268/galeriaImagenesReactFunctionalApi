@@ -1,0 +1,100 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+.bg-1{
+    background-color: #011A27;
+}
+
+.bg-2{
+    background-color: #063852;
+}
+
+.bg-3{
+    background-color: #F0810F;
+}
+
+.bg-4{
+    background-color: #3F681C;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+header{
+    border: 1px black solid;
+}
+
+main{
+    margin-top: 85px;
+}
+
+.caja{
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px 1px black;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.caja:hover{
+    background-color:#E6DF44;
+    color: black !important;
+    font-weight: 600;
+}
+
+.caja div{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.tarjeta {
+    height: 500px;
+    background-color: transparent;
+    perspective: 1000px;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+}
+
+.imgPhoto:hover{
+    opacity: .5;
+    box-shadow: 0 8px 8px 0 #063852;    
+}
+
+.card{
+    height: 100%;
+    width: 100%;
+}
+
+.card img{
+    object-fit: cover;
+    height: 70%;
+}
+
+.card-body p{
+    margin: 7px;
+}
+
+.dropdown-menu a{
+    color: white;
+    font-weight: 600;
+}
+
+.alert-dark{
+    background-color: #F0810F;
+}
+
+.alert-danger{
+    background-color: red;
+}
+
+.alert p{
+    color: white;
+    font-size: large;
+    font-weight: 500;
+}
