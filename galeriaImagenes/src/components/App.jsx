@@ -64,28 +64,33 @@ const App = () => {
     }
     
     const filtroAll = () => {
+        setCharacterDetails([]);
         setCharactersFiltro(characters);
     }
 
     const filtroMale = () => {
+      setCharacterDetails([]);
         setCharactersFiltro(characters.filter((element) =>{
             return element.gender === "male"
         }))
     }
 
     const filtroFemale = () => {
+      setCharacterDetails([]);
         setCharactersFiltro(characters.filter((element) =>{
             return element.gender === "female"
         }))
     }
 
     const filtroAlive = () => {
+      setCharacterDetails([]);
         setCharactersFiltro(characters.filter((element) =>{
             return element.alive === true
         }))
     }
 
     const filtroDead = () => {
+      setCharacterDetails([]);
         setCharactersFiltro(characters.filter((element) =>{
             return element.alive === false
         }))
@@ -161,6 +166,10 @@ const App = () => {
       })
       setCharacterDetails(array);
     }
+
+    const back = () => {
+      setCharacterDetails([]);
+    }
       
     return (
         <Fragment>
@@ -177,7 +186,7 @@ const App = () => {
 
             <main>
                     <div className="container">
-                      {characterDetails.length !== 0 ? (<Details characterDetails={characterDetails}/>) : (
+                      {characterDetails.length !== 0 ? (<Details characterDetails={characterDetails} back={back}/>) : (
                         <Fragment>
                             <section>
                                 <Orders 
